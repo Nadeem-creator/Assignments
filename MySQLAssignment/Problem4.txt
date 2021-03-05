@@ -1,0 +1,12 @@
+ 4.Write a query to display the number of customers who have registration but no account in the bank.
+Give the alias name as Count_Customer for number of customers.
+-------------------------------------
+SELECT count(customer_number) Count_Customer
+    -> FROM customer_master
+    -> WHERE customer_number NOT IN (SELECT customer_number FROM account_master);
++----------------+
+| Count_Customer |
++----------------+
+|              0 |
++----------------+
+1 row in set (0.05 sec)

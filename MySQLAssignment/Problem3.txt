@@ -1,0 +1,15 @@
+ 3.Write a query to display the customer number, customer firstname,account number for the customer’s whose accounts were created after 15th of any month.
+Display the records sorted in ascending order based on customer number and then by account number.
+----------------------------------------
+SELECT am.customer_number, customer_firstname, account_number
+    -> FROM customer_master cm INNER JOIN account_master am
+    -> ON cm.customer_number=am.customer_number
+    -> WHERE extract(day from account_opening_date)>15
+    -> ORDER BY am.customer_number, account_number;
++-----------------+--------------------+----------------+
+| customer_number | customer_firstname | account_number |
++-----------------+--------------------+----------------+
+|              23 | Ravish             |           5121 |
+|              24 | Chandra            |           5124 |
++-----------------+--------------------+----------------+
+2 rows in set (0.06 sec)

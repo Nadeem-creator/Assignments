@@ -1,0 +1,69 @@
+1.Write a query to display account number, customer’s number, customer’s firstname,lastname,account opening date.
+Display the records sorted in ascending order based on account number.
+--------------------------------------------------------------------------
+mysql> CREATE TABLE customer_master(customer_number INT AUTO_INCREMENT PRIMARY KEY, customer_firstname VARCHAR(25) NOT NULL, customer_lastname VARCHAR(25));
+Query OK, 0 rows affected (0.70 sec)
+
+mysql> insert into customer_master values (21,'Jagan','Mohan');
+Query OK, 1 row affected (0.24 sec)
+
+mysql> insert into customer_master values (22,'Babu','Mohan');
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into customer_master values (24,'Chandra','Babu');
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into customer_master values (23,'Ravish','Kumar');
+Query OK, 1 row affected (0.39 sec)
+
+mysql> select * from customer_master;
++-----------------+---------------------+--------------------+
+| customer_number | customer_first_name | customer_last_name |
++-----------------+---------------------+--------------------+
+|              21 | Jagan               | Mohan              |
+|              22 | Babu                | Mohan              |
+|              23 | Ravish              | Kumar              |
+|              24 | Chandra             | Babu               |
++-----------------+---------------------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> CREATE TABLE account_master(account_number INT AUTO_INCREMENT PRIMARY KEY, account_opening_date DATE,customer_number INT NOT NULL);
+Query OK, 0 rows affected (2.04 sec)
+
+mysql> INSERT INTO account_master VALUES(5121,'2020-11-22',23);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> INSERT INTO account_master VALUES(5122,'2020-11-14',22);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> INSERT INTO account_master VALUES(5123,'2020-09-07',21);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> INSERT INTO account_master VALUES(5124,'2020-10-31',24);
+Query OK, 1 row affected (0.13 sec)
+
+mysql> select * from account_master;
++----------------+----------------------+-----------------+
+| account_number | account_opening_date | customer_number |
++----------------+----------------------+-----------------+
+|           5121 | 2020-11-22           |              23 |
+|           5122 | 2020-11-14           |              22 |
+|           5123 | 2020-09-07           |              21 |
+|           5124 | 2020-10-31           |              24 |
++----------------+----------------------+-----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT account_number,am.customer_number,customer_firstname,customer_lastname,account_opening_date
+    -> FROM customer_master cm INNER JOIN account_master am
+    -> ON cm.customer_number=am.customer_number
+    -> ORDER BY account_number
+    -> ;
++----------------+-----------------+--------------------+-------------------+----------------------+
+| account_number | customer_number | customer_firstname | customer_lastname | account_opening_date |
++----------------+-----------------+--------------------+-------------------+----------------------+
+|           5121 |              23 | Ravish             | Kumar             | 2020-11-22           |
+|           5122 |              22 | Babu               | Mohan             | 2020-11-14           |
+|           5123 |              21 | Jagan              | Mohan             | 2020-09-07           |
+|           5124 |              24 | Chandra            | Babu              | 2020-10-31           |
++----------------+-----------------+--------------------+-------------------+----------------------+
+4 rows in set (0.00 sec)

@@ -1,0 +1,12 @@
+7.Write a query to display the customer’s firstname who have multiple accounts (atleast 2 accounts). Display the records sorted in ascending order based on customer's firstname.
+-------------------------------------------
+ SELECT customer_firstname
+    -> FROM customer_master INNER JOIN account_master
+    -> ON customer_master.customer_number=account_master.customer_number GROUP BY customer_firstname
+    -> having count(customer_firstname)>=2 order by customer_firstname;
++--------------------+
+| customer_firstname |
++--------------------+
+| Jagan              |
++--------------------+
+1 row in set (0.00 sec)

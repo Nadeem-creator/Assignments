@@ -1,0 +1,44 @@
+ 2.Write a query to display the number of customer’s from Chennai. Give the count an alias name of Cust_Count.
+--------------------------------------
+CREATE TABLE customer_master(customer_number INT AUTO_INCREMENT PRIMARY KEY, customer_firstname VARCHAR(25) NOT NULL, customer_lastname VARCHAR(25), location VARCHAR(20));
+Query OK, 0 rows affected (1.10 sec)
+
+mysql> insert into customer_master values (21,'Jagan','Mohan','Noida');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customer_master values (22,'Babu','Mohan');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into customer_master values (22,'Babu','Naidu','Vijayawada');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customer_master values (24,'Chandra','Babu','Hyderabad');
+Query OK, 1 row affected (0.36 sec)
+
+mysql> insert into customer_master values (23,'Ravish','Kumar','Chennai');
+Query OK, 1 row affected (0.16 sec)
+
+mysql> select * from customer_master;
++-----------------+--------------------+-------------------+------------+
+| customer_number | customer_firstname | customer_lastname | location   |
++-----------------+--------------------+-------------------+------------+
+|              21 | Jagan              | Mohan             | Noida      |
+|              22 | Babu               | Naidu             | Vijayawada |
+|              23 | Ravish             | Kumar             | Chennai    |
+|              24 | Chandra            | Babu              | Hyderabad  |
++-----------------+--------------------+-------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT count(customer_number) Cust_Count
+    -> FROM customer_master
+    -> WHERE customer_city='Chennai'
+    -> ;
+ERROR 1054 (42S22): Unknown column 'customer_city' in 'where clause'
+mysql> SELECT count(customer_number) Cust_Count
+    -> FROM customer_master
+    -> WHERE location='Chennai';
++------------+
+| Cust_Count |
++------------+
+|          1 |
++------------+
+1 row in set (0.04 sec)

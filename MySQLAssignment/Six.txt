@@ -1,0 +1,30 @@
+Write a query to display the number of clients who have asked for loans but they don’t have any account in the bank though they are registered customers. Give the count an alias name of Count.
+
+-------------------------------------------
+mysql> create table loanDetails(loanid int primary key auto_increment,customer_number int,foreign key(customer_number) references customer_master(customer_number));
+Query OK, 0 rows affected (0.78 sec)
+
+mysql> create table loanDetails(loanid int primary key auto_increment,customer_number int,foreign key(customer_number) references customer_master(customer_number));
+ERROR 1050 (42S01): Table 'loandetails' already exists
+mysql> insert into loanDetails values(1094,21);
+Query OK, 1 row affected (0.30 sec)
+
+mysql> insert into loanDetails values(1234,22);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into loanDetails values(3094,23);
+Query OK, 1 row affected (0.17 sec)
+
+mysql> insert into loanDetails values(8353,24);
+Query OK, 1 row affected (0.17 sec) 
+
+SELECT count(ld.customer_number) Count
+    -> FROM customer_master cm INNER JOIN loanDetails ld
+    -> ON cm.customer_number=ld.customer_number
+    -> WHERE cm.customer_number NOT IN ( SELECT customer_number FROM account_master);
++-------+
+| Count |
++-------+
+|     0 |
++-------+
+1 row in set (0.00 sec)
